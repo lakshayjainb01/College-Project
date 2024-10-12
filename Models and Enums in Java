@@ -1,0 +1,38 @@
+User{
+String uuid		// unique
+String username		// unique, regex, minimum length 5
+String fullName		// regex, minimum length 5
+String email		// unique, regex
+String address		// regex pattern, minimum length 7
+String phoneNo		// unique, regex pattern, length 10
+LocalDate dob		// default value is now
+Role role
+LocalDateTime createdAt	// default value is now
+LocalDateTime updatedAt	// default value is now
+String lastUpdatedByUuid// default user itself 
+boolean isActive	// default true
+String blockedBy	// default null
+}
+
+Employee extends User{
+Department department
+String password		// use encryption algo
+LocalDate joinedAt	// default value is now
+LocalDate leftAt	// default null
+}
+
+Doctor extends Employee{
+BigDecimal experience	// 0 to 5
+}
+
+Receptionist extends Employee
+Admin extends Employee
+Pharmacist extends Employee
+
+
+Enum Department{
+CARDIOLOGY, NEUROLOGY, GENERAL_MEDICINE, MANAGEMENT, HOSPITALITY, ADMINISTRATION, PHARMACIST}
+
+Enum Role{
+DOCTOR, PATIENT, RECEPTIONIST, ADMINISTRATION, PHARMACIST
+}

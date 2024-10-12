@@ -1,0 +1,85 @@
+JS Code :
+
+// Enums for Department and Role
+const Department = {
+    CARDIOLOGY: "CARDIOLOGY",
+    NEUROLOGY: "NEUROLOGY",
+    GENERAL_MEDICINE: "GENERAL_MEDICINE",
+    MANAGEMENT: "MANAGEMENT",
+    HOSPITALITY: "HOSPITALITY",
+    ADMINISTRATION: "ADMINISTRATION",
+    PHARMACIST: "PHARMACIST",
+};
+
+const Role = {
+    DOCTOR: "DOCTOR",
+    PATIENT: "PATIENT",
+    RECEPTIONIST: "RECEPTIONIST",
+    ADMINISTRATION: "ADMINISTRATION",
+    PHARMACIST: "PHARMACIST",
+};
+
+// Base User class
+class User {
+    constructor(uuid, username, fullName, email, address, phoneNo, dob = new Date(), role, lastUpdatedByUuid = uuid, isActive = true, blockedBy = null) {
+        this.uuid = uuid;  // Unique identifier
+        this.username = username;  // Unique username
+        this.fullName = fullName;  // Full name
+        this.email = email;  // Unique email
+        this.address = address;  // Address
+        this.phoneNo = phoneNo;  // Unique phone number
+        this.dob = dob;  // Date of birth
+        this.role = role;  // User role
+        this.createdAt = new Date();  // Created at timestamp
+        this.updatedAt = new Date();  // Updated at timestamp
+        this.lastUpdatedByUuid = lastUpdatedByUuid;  // UUID of the last updater
+        this.isActive = isActive;  // Active status
+        this.blockedBy = blockedBy;  // Blocked by user
+    }
+}
+
+// Employee class extends User
+class Employee extends User {
+    constructor(uuid, username, fullName, email, address, phoneNo, dob, role, department, password, joinedAt = new Date(), leftAt = null) {
+        super(uuid, username, fullName, email, address, phoneNo, dob, role);
+        this.department = department;  // Department
+        this.password = this.encryptPassword(password);  // Encrypted password
+        this.joinedAt = joinedAt;  // Date joined
+        this.leftAt = leftAt;  // Date left
+    }
+
+    // Method to encrypt password (placeholder, implement encryption logic here)
+    encryptPassword(password) {
+        // Implement your encryption algorithm here
+        return password; // This should return the encrypted password
+    }
+}
+
+// Doctor class extends Employee
+class Doctor extends Employee {
+    constructor(uuid, username, fullName, email, address, phoneNo, dob, role, department, password, experience, joinedAt, leftAt) {
+        super(uuid, username, fullName, email, address, phoneNo, dob, role, department, password, joinedAt, leftAt);
+        this.experience = experience;  // Experience level (0 to 5)
+    }
+}
+
+// Receptionist class extends Employee
+class Receptionist extends Employee {
+    constructor(uuid, username, fullName, email, address, phoneNo, dob, role, department, password, joinedAt, leftAt) {
+        super(uuid, username, fullName, email, address, phoneNo, dob, role, department, password, joinedAt, leftAt);
+    }
+}
+
+// Admin class extends Employee
+class Admin extends Employee {
+    constructor(uuid, username, fullName, email, address, phoneNo, dob, role, department, password, joinedAt, leftAt) {
+        super(uuid, username, fullName, email, address, phoneNo, dob, role, department, password, joinedAt, leftAt);
+    }
+}
+
+// Pharmacist class extends Employee
+class Pharmacist extends Employee {
+    constructor(uuid, username, fullName, email, address, phoneNo, dob, role, department, password, joinedAt, leftAt) {
+        super(uuid, username, fullName, email, address, phoneNo, dob, role, department, password, joinedAt, leftAt);
+    }
+}

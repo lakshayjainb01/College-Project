@@ -1,0 +1,99 @@
+mongoose DB table:
+
+const mongoose = require('mongoose');
+
+const hospitalStaffSchema = new mongoose.Schema({
+    uuid: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+        minlength: 5 // Minimum length can be enforced at the application level
+    },
+    full_name: {
+        type: String,
+        required: true,
+        minlength: 5 // Minimum length can be enforced at the application level
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    address: {
+        type: String, // Using String to accommodate for the TEXT type
+        required: true
+    },
+    phone_no: {
+        type: String,
+        required: true,
+        unique: true,
+        minlength: 10,
+        maxlength: 10 // Ensuring the length is exactly 10 characters
+    },
+    dob: {
+        type: Date,
+        required: true
+    },
+    role: {
+        type: String,
+        required: true
+    },
+    department: {
+        type: String,
+        default: null // Can be null for patients
+    },
+    password: {
+        type: String,
+        default: null // Can be null for patients
+    },
+    experience: {
+        type: Number,
+        default: null, // Experience can be null
+        min: 0,        // Minimum experience can be enforced at the application level
+        max: 5         // Maximum experience is 5
+    },
+    joined_at: {
+        type: Date,
+        default: null // Can be null for patients
+    },
+    left_at: {
+        type: Date,
+        default: null // Leaving date can also be null
+    },
+    created_at: {
+        type: Date,
+        default: Date.now
+    },
+    updated_at: {
+        type: Date,
+        default: Date.now
+    },
+    last_updated_by_uuid: {
+        type: String,
+        default: null
+    },
+    is_active: {
+        type: Boolean,
+        default: true
+    },
+    blocked_by: {
+        type: String,
+        default: null
+    }
+});
+
+// Middleware to update the 'updated_at' field on save
+hospitalStaffSchema.pre('save', function (next) {
+    this.updated_at = Date.now();
+    next();
+});
+
+// Create the model
+const HospitalStaff = mongoose.model('HospitalStaff', hospitalStaffSchema);
+
+module.exports = HospitalStaff;
